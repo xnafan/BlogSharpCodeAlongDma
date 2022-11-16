@@ -46,14 +46,18 @@ public class BlogPostController : Controller
     }
     public ActionResult Edit(int id)
     {
-        return View();
+        return View(_blogPosts.First(blogPost => blogPost.Id == id));
     }
+
+
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Edit(int id, IFormCollection collection)
+    public ActionResult Edit(BlogPost editedBlogPost)
     {
         try
         {
+            _blogPosts.RemoveAll(blogPost => blogPost.Id == editedBlogPost.Id);
+            _blogPosts.Add(editedBlogPost);
             return RedirectToAction(nameof(Index));
         }
         catch
