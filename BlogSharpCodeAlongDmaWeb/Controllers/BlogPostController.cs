@@ -56,8 +56,9 @@ public class BlogPostController : Controller
     {
         try
         {
-            _blogPosts.RemoveAll(blogPost => blogPost.Id == editedBlogPost.Id);
-            _blogPosts.Add(editedBlogPost);
+            var blogPost = _blogPosts.First(blogPost=>blogPost.Id == editedBlogPost.Id);
+            blogPost.Title = editedBlogPost.Title;
+            blogPost.Content = editedBlogPost.Content;
             return RedirectToAction(nameof(Index));
         }
         catch
