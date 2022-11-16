@@ -68,14 +68,16 @@ public class BlogPostController : Controller
     }
     public ActionResult Delete(int id)
     {
-        return View();
+        return View(_blogPosts.First(blogPost => blogPost.Id == id));
     }
+
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Delete(int id, IFormCollection collection)
+    public ActionResult Delete(BlogPost deletedBlogPost)
     {
         try
         {
+            _blogPosts.RemoveAll(blogPost => blogPost.Id == deletedBlogPost.Id);
             return RedirectToAction(nameof(Index));
         }
         catch
