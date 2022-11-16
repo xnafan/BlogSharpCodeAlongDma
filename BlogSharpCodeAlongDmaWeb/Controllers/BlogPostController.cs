@@ -1,10 +1,25 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BlogSharpCodeAlongDmaWeb.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogSharpCodeAlongDmaWeb.Controllers
 {
     public class BlogPostController : Controller
     {
+        List<BlogPost> _blogPosts = new List<BlogPost>() {
+            new BlogPost() {Id=1, Title="Awesome blogpost", 
+                Content="Also some awesome content", 
+                CreationDate = DateTime.Now.AddDays(-3) },
+            new BlogPost() {Id=2, Title="Another blogpost",
+                Content="More awesome content",
+                CreationDate = DateTime.Now.AddDays(-2) },
+            new BlogPost() {Id=3, Title="Baaad blogpost",
+                Content="Shitty content",
+                CreationDate = DateTime.Now.AddDays(-1) },
+
+
+        };
+
         // GET: BlogPostController
         public ActionResult Index()
         {
