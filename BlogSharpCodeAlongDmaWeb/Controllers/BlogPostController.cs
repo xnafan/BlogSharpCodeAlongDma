@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BlogSharpCodeAlongDmaWeb.Controllers;
 public class BlogPostController : Controller
 {
-    List<BlogPost> _blogPosts = new List<BlogPost>() {
+    static List<BlogPost> _blogPosts = new List<BlogPost>() {
             new BlogPost() {Id=1, Title="Awesome blogpost",
                 Content="Also some awesome content",
                 CreationDate = DateTime.Now.AddDays(-3) },
@@ -29,10 +29,14 @@ public class BlogPostController : Controller
     }
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create(IFormCollection collection)
+    public ActionResult Create(BlogPost blogPost)
     {
         try
         {
+            blogPost.Id = _blogPosts.Max(blogPost => blogPost.Id)+1;
+            blogPost.CreationDate = DateTime.Now;
+            _blogPosts.Add(blogPost);
+
             return RedirectToAction(nameof(Index));
         }
         catch
