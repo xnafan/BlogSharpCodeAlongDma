@@ -1,4 +1,5 @@
 ﻿using BlogSharpCodeAlongDmaWeb.Models;
+using BlogSharpCodeAlongDmaWeb.RestClient;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,8 @@ public class BlogPostController : Controller
         };
 
     [AllowAnonymous]
-    public ActionResult Index() => View(_blogPosts);
+    public ActionResult Index() => View(new BlogPostClient().GetAllBlogPosts());
+
     [AllowAnonymous]
     public ActionResult Details(int id)
     {
