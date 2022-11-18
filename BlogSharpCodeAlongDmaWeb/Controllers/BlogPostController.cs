@@ -1,8 +1,11 @@
 ﻿using BlogSharpCodeAlongDmaWeb.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogSharpCodeAlongDmaWeb.Controllers;
+
+[Authorize]
 public class BlogPostController : Controller
 {
     static List<BlogPost> _blogPosts = new List<BlogPost>() {
@@ -18,7 +21,10 @@ public class BlogPostController : Controller
 
 
         };
+
+    [AllowAnonymous]
     public ActionResult Index() => View(_blogPosts);
+    [AllowAnonymous]
     public ActionResult Details(int id)
     {
         return View(_blogPosts.First(blogPost => blogPost.Id == id));
