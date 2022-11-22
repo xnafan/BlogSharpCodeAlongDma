@@ -6,8 +6,9 @@ namespace BlogSharpCodeAlongDmaWeb.RestClient
 {
     public class BlogPostClient
     {
-        RestSharp.RestClient _client = new ("https://localhost:7101/api/BlogPost");
+        RestSharp.RestClient _client;
 
+        public BlogPostClient(string baseUrl) => _client = new RestSharp.RestClient(baseUrl);
 
         public IEnumerable<BlogPostDto>? GetAllBlogPosts()
         {

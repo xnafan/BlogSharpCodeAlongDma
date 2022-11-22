@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BlogSharpDataAccessLayer;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,16 +9,17 @@ namespace BlogSharpWebApi.Controllers
     [ApiController]
     public class BlogPostController : ControllerBase
     {
+
+        IBlogPostDao _blogPostDao;
+
+        public BlogPostController(IBlogPostDao blogPostDao) => _blogPostDao = blogPostDao;
+
+
+
         // GET: api/<BlogPostController>
         [HttpGet]
-        public IEnumerable<BlogPostDto> Get()
-        {
-            return new List<BlogPostDto>() {
-                new BlogPostDto(){Title = "Fin titel", Content="Fint indhold" },
-                new BlogPostDto(){Title = "Fin titel 2", Content="Fint indhold" },
-                                new BlogPostDto(){Title = "Fin titel 3", Content="Fint indhold" }
-            };
-        }
+        //TODO: we need to convert from model to DTO 😊
+        public IEnumerable<BlogPostDto> Get() => _blogPostDao.GetAll();
 
         // GET api/<BlogPostController>/5
         [HttpGet("{id}")]

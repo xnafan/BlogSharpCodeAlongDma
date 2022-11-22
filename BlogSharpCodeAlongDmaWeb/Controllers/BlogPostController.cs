@@ -9,22 +9,16 @@ namespace BlogSharpCodeAlongDmaWeb.Controllers;
 [Authorize]
 public class BlogPostController : Controller
 {
-    static List<BlogPost> _blogPosts = new List<BlogPost>() {
-            new BlogPost() {Id=1, Title="Awesome blogpost",
-                Content="Also some awesome content",
-                CreationDate = DateTime.Now.AddDays(-3) },
-            new BlogPost() {Id=2, Title="Another blogpost",
-                Content="More awesome content",
-                CreationDate = DateTime.Now.AddDays(-2) },
-            new BlogPost() {Id=3, Title="Baaad blogpost",
-                Content="Shitty content",
-                CreationDate = DateTime.Now.AddDays(-1) },
-
-
-        };
+    private List<BlogPost> _blogPosts;
+    BlogPostClient blogPostClient;
+   
+    public BlogPostController(BlogPostClient blogPostClient)
+    {
+        this.blogPostClient = blogPostClient;
+    }
 
     [AllowAnonymous]
-    public ActionResult Index() => View(new BlogPostClient().GetAllBlogPosts());
+    public ActionResult Index() => View(blogPostClient.GetAllBlogPosts());
 
     [AllowAnonymous]
     public ActionResult Details(int id)
